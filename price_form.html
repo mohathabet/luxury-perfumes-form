@@ -471,7 +471,9 @@
                     <div class="product-card">
                         <div class="product-header">
                             ${imageUrl ? 
-                                `<img src="${imageUrl}" alt="${product.name}" class="product-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                `<a href="${imageUrl}" target="_blank">
+                                    <img src="${imageUrl}" alt="${product.name}" class="product-image" onerror="this.style.display='none'; this.parentElement.nextElementSibling.style.display='flex';">
+                                </a>
                                  <div class="empty-image" style="display: none;">Pas d'image</div>` :
                                 `<div class="empty-image">Pas d'image</div>`
                             }
