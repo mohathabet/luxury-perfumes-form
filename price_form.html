@@ -503,7 +503,7 @@
                 `;
             }).join('');
 
-            // Add zoom functionality for images
+            // Add zoom popup functionality for images
             setTimeout(() => {
                 document.querySelectorAll('.zoomable').forEach(img => {
                     img.addEventListener('click', function() {
@@ -524,6 +524,7 @@
                         zoomImg.style.maxWidth = '90vw';
                         zoomImg.style.maxHeight = '90vh';
                         zoomImg.style.borderRadius = '12px';
+                        zoomImg.style.boxShadow = '0 8px 40px rgba(0,0,0,0.5)';
                         zoomOverlay.appendChild(zoomImg);
                         zoomOverlay.addEventListener('click', () => document.body.removeChild(zoomOverlay));
                         document.body.appendChild(zoomOverlay);
