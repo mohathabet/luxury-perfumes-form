@@ -466,21 +466,17 @@
             
             container.innerHTML = filteredProducts.map((product, index) => {
                 const imageUrl = product.photos && product.photos.length > 0 ? product.photos[0] : '';
-                
                 return `
                     <div class="product-card">
                         <div class="product-header">
                             ${imageUrl ? 
-                                `<a href="${imageUrl}" target="_blank">
-                                    <img src="${imageUrl}" alt="${product.name}" class="product-image" onerror="this.style.display='none'; this.parentElement.nextElementSibling.style.display='flex';">
-                                </a>
+                                `<img src="${imageUrl}" alt="${product.name}" class="product-image zoomable" data-img="${imageUrl}" style="cursor:zoom-in;">
                                  <div class="empty-image" style="display: none;">Pas d'image</div>` :
                                 `<div class="empty-image">Pas d'image</div>`
                             }
                             <div class="product-info">
                                 <div class="product-name">${product.name || 'Nom non disponible'}</div>
                                 ${product.category ? `<span class="product-category">${product.category}</span>` : ''}
-                                <!-- Removed original price display -->
                             </div>
                         </div>
                         <div class="price-inputs">
@@ -506,6 +502,34 @@
                     </div>
                 `;
             }).join('');
+
+            // Add zoom functionality for images
+            setTimeout(() => {
+                document.querySelectorAll('.zoomable').forEach(img => {
+                    img.addEventListener('click', function() {
+                        const zoomOverlay = document.createElement('div');
+                        zoomOverlay.style.position = 'fixed';
+                        zoomOverlay.style.top = 0;
+                        zoomOverlay.style.left = 0;
+                        zoomOverlay.style.width = '100vw';
+                        zoomOverlay.style.height = '100vh';
+                        zoomOverlay.style.background = 'rgba(0,0,0,0.8)';
+                        zoomOverlay.style.display = 'flex';
+                        zoomOverlay.style.alignItems = 'center';
+                        zoomOverlay.style.justifyContent = 'center';
+                        zoomOverlay.style.zIndex = 9999;
+                        zoomOverlay.style.cursor = 'zoom-out';
+                        const zoomImg = document.createElement('img');
+                        zoomImg.src = img.getAttribute('data-img');
+                        zoomImg.style.maxWidth = '90vw';
+                        zoomImg.style.maxHeight = '90vh';
+                        zoomImg.style.borderRadius = '12px';
+                        zoomOverlay.appendChild(zoomImg);
+                        zoomOverlay.addEventListener('click', () => document.body.removeChild(zoomOverlay));
+                        document.body.appendChild(zoomOverlay);
+                    });
+                });
+            }, 0);
         }
 
         function updatePrice(originalIndex, type, value) {
