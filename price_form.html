@@ -313,7 +313,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Wassa3 balak</h1>
+            <h1>wasa3 balal</h1>
             <p>Veuillez remplir les nouveaux prix pour chaque produit</p>
         </div>
 
@@ -466,7 +466,6 @@
             
             container.innerHTML = filteredProducts.map((product, index) => {
                 const imageUrl = product.photos && product.photos.length > 0 ? product.photos[0] : '';
-                const originalPrice = product.price || 'N/A';
                 
                 return `
                     <div class="product-card">
@@ -479,7 +478,7 @@
                             <div class="product-info">
                                 <div class="product-name">${product.name || 'Nom non disponible'}</div>
                                 ${product.category ? `<span class="product-category">${product.category}</span>` : ''}
-                                <div class="product-price">Prix actuel: ${originalPrice}</div>
+                                <!-- Removed original price display -->
                             </div>
                         </div>
                         <div class="price-inputs">
